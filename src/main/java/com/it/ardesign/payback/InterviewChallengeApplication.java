@@ -1,0 +1,12 @@
+package com.it.ardesign.payback;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class InterviewChallengeApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(InterviewChallengeApplication.class, args);
+    }
+}
