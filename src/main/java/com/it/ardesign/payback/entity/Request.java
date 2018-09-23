@@ -15,9 +15,10 @@ import javax.validation.constraints.NotNull;
 public class Request {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @NotNull
     private String record;
+
 }

@@ -10,7 +10,7 @@ import java.io.IOException;
 
 @Service
 @Slf4j
-public class FileService extends ParentService {
+public class FileService implements Processable {
 
     @Override
     public String process(String record) throws IOException {

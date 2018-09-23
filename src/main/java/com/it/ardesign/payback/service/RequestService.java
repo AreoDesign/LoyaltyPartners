@@ -15,7 +15,7 @@ import java.util.Queue;
 @Slf4j
 public class RequestService {
 
-    private final Map<RequestType, ParentService> dispatcher;
+    private final Map<RequestType, Processable> dispatcher;
 
     private Queue<RequestDTO> requestQueue = new ArrayDeque<>();
 

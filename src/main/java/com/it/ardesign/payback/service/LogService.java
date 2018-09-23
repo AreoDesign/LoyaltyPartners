@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class LogService extends ParentService {
+public class LogService implements Processable {
 
     @Override
     public String process(String record) {
