@@ -2,10 +2,11 @@ package com.it.ardesign.payback.service;
 
 import com.google.common.collect.ImmutableMap;
 import com.it.ardesign.payback.dictionary.RequestType;
+import com.it.ardesign.payback.dto.RequestDTO;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.Map;
 import java.util.Queue;
@@ -16,7 +17,7 @@ public class RequestService {
 
     private final Map<RequestType, ParentService> dispatcher;
 
-    private Queue<Pair<RequestType, String>> requestQueue = new ArrayDeque<>();
+    private Queue<RequestDTO> requestQueue = new ArrayDeque<>();
 
     public RequestService(DBService dbService,
                           RejectService rejectService,
@@ -30,23 +31,39 @@ public class RequestService {
         );
     }
 
-//    public String dispatch(String request){
-//
-//        return new String("SUCCESS");
-//    }
+    public String addToQueue(RequestDTO requestDTO) {
 
-    public String addToQueue(RequestType requestType, String request) {
-
-        requestQueue.add(Pair.of(requestType, request));
-        log.info("RequestService put request: '{}' onto queue. Now, there is: '{}' element(s) in queue.", request, requestQueue.size());
+        requestQueue.add(requestDTO);
+        log.info("RequestService put record: '{}' onto queue. Now, there is: '{}' element(s) in queue.",
+                requestDTO.getRecord(), requestQueue.size());
 
         return new String("SUCCESS");
     }
 
     public String calc() {
 
+        RequestDTO requestDTO = null;
+        boolean logFlag = requestQueue.size() != 0 ? true : false;
+
+        long lStartTime = System.nanoTime();
+
         while (requestQueue.size() > 0) {
-            requestQueue.poll();
+            requestDTO = requestQueue.poll();
+            try {
+                dispatcher.get(requestDTO.getRequestType()).process(requestDTO.getRecord());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        long lFinishTime = System.nanoTime();
+
+        long timeElapsed = (lFinishTime - lStartTime) / 1_000_000; //time in milliseconds
+
+        if (logFlag) {
+            log.info("All elements processed within = {} msec. There is no requestDTO left.", timeElapsed);
+        } else {
+            log.warn("There was no requestDTO to process.");
         }
 
         return new String("SUCCESS");

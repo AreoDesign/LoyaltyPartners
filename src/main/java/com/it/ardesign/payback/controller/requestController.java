@@ -1,14 +1,16 @@
 package com.it.ardesign.payback.controller;
 
-import com.it.ardesign.payback.dictionary.RequestType;
+import com.it.ardesign.payback.dto.RequestDTO;
 import com.it.ardesign.payback.service.RequestService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RestController
 @Slf4j
@@ -19,8 +21,8 @@ public class requestController {
     private final RequestService requestService;
 
     @PostMapping("/addObject")
-    public String addObject(@RequestParam @NonNull RequestType requestType, @RequestParam @NonNull String request) {
-        requestService.addToQueue(requestType, request);
+    public String addObject(@RequestBody @Valid RequestDTO requestDTO) {
+        requestService.addToQueue(requestDTO);
 
         return new String("SUCCESS"); //TODO: maybe ENUM?
     }

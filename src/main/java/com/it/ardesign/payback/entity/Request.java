@@ -1,5 +1,6 @@
 package com.it.ardesign.payback.entity;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
+@Builder
 public class Request {
 
     @Id
@@ -17,5 +19,5 @@ public class Request {
     private Integer id;
 
     @NotNull
-    private String request;
+    private String record;
 }
