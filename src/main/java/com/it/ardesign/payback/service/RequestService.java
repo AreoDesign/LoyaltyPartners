@@ -52,6 +52,7 @@ public class RequestService {
             try {
                 dispatcher.get(requestDTO.getRequestType()).process(requestDTO.getRecord());
             } catch (IOException e) {
+                log.error("Something went wrong while dispatching the request...");
                 e.printStackTrace();
             }
         }

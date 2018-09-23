@@ -10,9 +10,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,7 +39,8 @@ public class FileServiceTest {
         }
 
         //read data from file
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(FileName.AR_DESIGN.getFullPath()));
+        FileReader fileReader = new FileReader(FileName.AR_DESIGN.getFullPath());
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
         Iterator<String> iterator = savesStorage.iterator();
         String line;
         while ((line = bufferedReader.readLine()) != null) {
@@ -46,18 +48,25 @@ public class FileServiceTest {
             Assert.assertEquals(iterator.next(), line);
         }
 
-        cleanAfterTest();
+        //close the stream => allows to remove the file after test.
+        bufferedReader.close();
+        fileReader.close();
 
+        cleanAfterTest();
     }
 
     private void cleanAfterTest() {
-        File file = new File(FileName.AR_DESIGN.getFullPath());
+        try {
+            Files.delete(Paths.get(FileName.AR_DESIGN.getFullPath()));
+            log.info("'{}' has been deleted successfully from location: '{}'",
+                    FileName.AR_DESIGN.getName(), FileName.AR_DESIGN.getFullPath());
 
-        if (file.delete()) {
-            log.info(file.getName() + " has been deleted!");
-        } else {
-            log.error("Delete operation failed.");
+        } catch (IOException e) {
+            log.error("'{}' cannot be deleted from location: '{}'",
+                    FileName.AR_DESIGN.getName(), FileName.AR_DESIGN.getFullPath());
+            e.printStackTrace();
         }
 
     }
+
 }
