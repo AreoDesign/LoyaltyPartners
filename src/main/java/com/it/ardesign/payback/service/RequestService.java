@@ -52,7 +52,7 @@ public class RequestService {
             try {
                 dispatcher.get(requestDTO.getRequestType()).process(requestDTO.getRecord());
             } catch (IOException e) {
-                log.error("Something went wrong while dispatching the request...");
+                log.error("Something went wrong while dispatching the request... See stack trace.");
                 e.printStackTrace();
             }
         }
@@ -62,12 +62,12 @@ public class RequestService {
         long timeElapsed = (lFinishTime - lStartTime) / 1_000_000; //time in milliseconds
 
         if (logFlag) {
-            log.info("All elements processed within = {} msec. There is no requestDTO left.", timeElapsed);
+            log.info("All elements processed within = {} msec. There is no more requestDTO left.", timeElapsed);
         } else {
             log.warn("There was no requestDTO to process.");
         }
 
-        return new String("SUCCESS");
+        return new String("PROCESSING COMPLETE");
     }
 
 }

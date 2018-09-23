@@ -7,7 +7,6 @@ public class RejectService implements Processable {
 
     @Override
     public String process(String record) {
-        String msg = String.format("REQUEST '%s' HAS BEEN REJECTED.", record);
-        return new String(msg);
+        return String.format("REQUEST '%s' HAS BEEN REJECTED.", record);
     }
 }
