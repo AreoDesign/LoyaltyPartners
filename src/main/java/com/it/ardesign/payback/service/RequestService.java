@@ -1,7 +1,7 @@
 package com.it.ardesign.payback.service;
 
 import com.google.common.collect.ImmutableMap;
-import com.it.ardesign.payback.dictionary.RequestType;
+import com.it.ardesign.payback.dictionary.ProcessType;
 import com.it.ardesign.payback.dto.RequestDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import java.util.Queue;
 @Slf4j
 public class RequestService {
 
-    private final Map<RequestType, Processable> dispatcher;
+    private final Map<ProcessType, Processable> dispatcher;
 
     private Queue<RequestDTO> requestQueue = new ArrayDeque<>();
 
@@ -24,18 +24,18 @@ public class RequestService {
                           FileService fileService,
                           LogService logService) {
         this.dispatcher = ImmutableMap.of(
-                RequestType.DB, dbService,
-                RequestType.REJECT, rejectService,
-                RequestType.FILE, fileService,
-                RequestType.LOG, logService
+                ProcessType.DB, dbService,
+                ProcessType.REJECT, rejectService,
+                ProcessType.FILE, fileService,
+                ProcessType.LOG, logService
         );
     }
 
     public String addToQueue(RequestDTO requestDTO) {
 
         requestQueue.add(requestDTO);
-        log.info("RequestService put record: '{}' onto queue. Now, there is: '{}' element(s) in queue.",
-                requestDTO.getRecord(), requestQueue.size());
+        log.info("RequestService put message: '{}' onto queue. Now, there is: '{}' element(s) in queue.",
+                requestDTO.getMessage(), requestQueue.size());
 
         return new String("SUCCESS");
     }
@@ -50,9 +50,9 @@ public class RequestService {
         while (requestQueue.size() > 0) {
             requestDTO = requestQueue.poll();
             try {
-                dispatcher.get(requestDTO.getRequestType()).process(requestDTO.getRecord());
+                dispatcher.get(requestDTO.getProcessType()).process(requestDTO.getMessage());
             } catch (IOException e) {
-                log.error("Something went wrong while dispatching the request...");
+                log.error("Something went wrong while dispatching the request... See stack trace.");
                 e.printStackTrace();
             }
         }
@@ -62,12 +62,12 @@ public class RequestService {
         long timeElapsed = (lFinishTime - lStartTime) / 1_000_000; //time in milliseconds
 
         if (logFlag) {
-            log.info("All elements processed within = {} msec. There is no requestDTO left.", timeElapsed);
+            log.info("All elements processed within = {} msec. There is no more requestDTO left.", timeElapsed);
         } else {
             log.warn("There was no requestDTO to process.");
         }
 
-        return new String("SUCCESS");
+        return new String("PROCESSING COMPLETE");
     }
 
 }

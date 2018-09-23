@@ -20,8 +20,8 @@ public class requestController {
     @NonNull
     private final RequestService requestService;
 
-    @PostMapping("/add")
-    public String addObject(@RequestBody @Valid RequestDTO requestDTO) {
+    @PostMapping("/addToQueue")
+    public String add(@RequestBody @Valid RequestDTO requestDTO) {
         requestService.addToQueue(requestDTO);
 
         return new String("SUCCESSFULLY ADDED TO QUEUE");

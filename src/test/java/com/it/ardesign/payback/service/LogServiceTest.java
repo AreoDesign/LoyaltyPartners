@@ -34,7 +34,7 @@ public class LogServiceTest {
         ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
         listAppender.start();
 
-        // add the appender to the logger
+        // addToQueue the appender to the logger
         logServiceLogger.addAppender(listAppender);
 
         // call method under test

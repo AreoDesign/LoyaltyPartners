@@ -1,6 +1,6 @@
 package com.it.ardesign.payback.dictionary;
 
-public enum RequestType {
+public enum ProcessType {
     DB,
     REJECT,
     FILE,

@@ -19,7 +19,7 @@ public class FileService implements Processable {
 
         try {
             bufferedWriter.append(record).append(System.lineSeparator());
-            log.info("The file has been saved to location: {}", FileName.AR_DESIGN.getFullPath());
+            log.info("The request has been saved to location: {}", FileName.AR_DESIGN.getFullPath());
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

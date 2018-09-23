@@ -15,7 +15,7 @@ public class LogService implements Processable {
     }
 
     public static String formatMessage(String msg) {
-        return String.format("It was requested to log record '%s' on console.", msg);
+        return String.format("It was requested to log message '%s' on console.", msg);
     }
 
     private String myGift = "\n" +
