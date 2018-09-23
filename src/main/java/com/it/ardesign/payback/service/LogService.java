@@ -9,12 +9,17 @@ public class LogService implements Processable {
 
     @Override
     public String process(String record) {
-        log.info("It was requested to log record '{}' on console.", record);
+        log.info(formatMessage(record));
         log.info(myGift);
-        return null;
+        return new String("RECORD SUCCESSFULLY LOGGED");
     }
 
-    private String myGift = "´´´´´´´´´´´´´´´´´´´´´´¶¶¶¶¶¶¶¶¶……..\n" +
+    public static String formatMessage(String msg) {
+        return String.format("It was requested to log record '%s' on console.", msg);
+    }
+
+    private String myGift = "\n" +
+            "´´´´´´´´´´´´´´´´´´´´´´¶¶¶¶¶¶¶¶¶……..\n" +
             "´´´´´´´´´´´´´´´´´´´´¶¶´´´´´´´´´´¶¶……\n" +
             "´´´´´´¶¶¶¶¶´´´´´´´¶¶´´´´´´´´´´´´´´¶¶……….\n" +
             "´´´´´¶´´´´´¶´´´´¶¶´´´´´¶¶´´´´¶¶´´´´´¶¶…………..\n" +

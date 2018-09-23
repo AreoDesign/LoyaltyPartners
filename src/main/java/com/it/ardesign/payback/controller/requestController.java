@@ -20,18 +20,18 @@ public class requestController {
     @NonNull
     private final RequestService requestService;
 
-    @PostMapping("/addObject")
+    @PostMapping("/add")
     public String addObject(@RequestBody @Valid RequestDTO requestDTO) {
         requestService.addToQueue(requestDTO);
 
-        return new String("SUCCESS"); //TODO: maybe ENUM?
+        return new String("SUCCESSFULLY ADDED TO QUEUE");
     }
 
-    @GetMapping("/startProcess")
+    @GetMapping("/start")
     public String calculate() {
         requestService.calc();
 
-        return new String("SUCCESS");
+        return new String("SUCCESSFULLY PROCESSED.");
     }
 
     ;

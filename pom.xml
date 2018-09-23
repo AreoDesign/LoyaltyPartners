@@ -74,6 +74,21 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
+            <!--plugin added to test messages logged by slf4j in console-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>org.spf4j.test.log.junit4.Spf4jTestLogRunListener
+                            </value> <!-- comma separate multiple listeners -->
+                        </property>
+                    </properties>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
