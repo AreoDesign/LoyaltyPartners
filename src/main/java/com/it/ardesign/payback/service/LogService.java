@@ -11,7 +11,7 @@ public class LogService implements Processable {
     public String process(String record) {
         log.info(formatMessage(record));
         log.info(myGift);
-        return new String("RECORD SUCCESSFULLY LOGGED");
+        return "RECORD SUCCESSFULLY LOGGED";
     }
 
     public static String formatMessage(String msg) {
