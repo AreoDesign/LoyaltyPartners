@@ -31,7 +31,6 @@ public class RequestController {
     @GetMapping("/start")
     public ResponseEntity<String> calculate() {
         String response = requestService.calc();
-
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
