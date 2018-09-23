@@ -1,8 +1,9 @@
 Zadanie:
 
-Napisac aplikacjê w wybranej technologii (mo¿e byæ spring, ejb, jee). Aplikacja mia³aby obslugiwac ¿¹dania i reagowaæ na nie w odpowiedni sposób w zale¿noœci od typu ¿adania.
-
-¯¹dania powinny byæ umieszczane na kolejce i zdejmowane z kolejki. Podczas zdejmowania z kolejki trzeba sprawdziæ ich typ i zareagowaæ odpowiednio:
+Napisac aplikacjê w wybranej technologii (mo¿e byæ spring, ejb, jee).
+Aplikacja mia³aby obslugiwac ¿¹dania i reagowaæ na nie w odpowiedni sposób w zale¿noœci od typu ¿adania.
+¯¹dania powinny byæ umieszczane na kolejce i zdejmowane z kolejki.
+Podczas zdejmowania z kolejki trzeba sprawdziæ ich typ i zareagowaæ odpowiednio:
 
 ¯¹dania:
 
