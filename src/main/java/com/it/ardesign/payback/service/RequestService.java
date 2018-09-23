@@ -32,17 +32,15 @@ public class RequestService {
     }
 
     public String addToQueue(RequestDTO requestDTO) {
-
         requestQueue.add(requestDTO);
         log.info("RequestService put message: '{}' onto queue. Now, there is: '{}' element(s) in queue.",
                 requestDTO.getMessage(), requestQueue.size());
 
-        return new String("SUCCESS");
+        return "SUCCESS";
     }
 
     public String calc() {
-
-        RequestDTO requestDTO = null;
+        RequestDTO requestDTO;
         boolean logFlag = requestQueue.size() != 0 ? true : false;
 
         long lStartTime = System.nanoTime();
@@ -64,10 +62,10 @@ public class RequestService {
         if (logFlag) {
             log.info("All elements processed within = {} msec. There is no more requestDTO left.", timeElapsed);
         } else {
-            log.warn("There was no requestDTO to process.");
+            log.warn("There was no items to process.");
         }
 
-        return new String("PROCESSING COMPLETE");
+        return "PROCESSING COMPLETE";
     }
 
 }

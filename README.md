@@ -53,5 +53,5 @@ SAMPLE REQUESTS:
 
 {
   "message": "ja chce zostać odrzucony!",
-  "processType": "REJECT"
+  "processType": "REJECT"`
 }
